@@ -10,6 +10,9 @@
 package extension
 
 import (
+	"io/ioutil"
+	"os"
+
 	osquery "github.com/Uptycs/basequery-go"
 	"github.com/Uptycs/basequery-go/plugin/table"
 	"github.com/Uptycs/cloudquery/extension/aws/acm"
@@ -33,6 +36,7 @@ import (
 	"github.com/Uptycs/cloudquery/extension/aws/iam"
 	"github.com/Uptycs/cloudquery/extension/aws/kms"
 	"github.com/Uptycs/cloudquery/extension/aws/organizations"
+	"github.com/Uptycs/cloudquery/extension/aws/rds"
 	"github.com/Uptycs/cloudquery/extension/aws/s3"
 	glacier "github.com/Uptycs/cloudquery/extension/aws/s3_glacier"
 	"github.com/Uptycs/cloudquery/extension/aws/sns"
@@ -40,9 +44,6 @@ import (
 	"github.com/Uptycs/cloudquery/extension/aws/workspaces"
 	"github.com/Uptycs/cloudquery/extension/gcp/compute"
 	"github.com/Uptycs/cloudquery/extension/gcp/storage"
-
-	"io/ioutil"
-	"os"
 
 	azurecompute "github.com/Uptycs/cloudquery/extension/azure/compute"
 	gcpcontainer "github.com/Uptycs/cloudquery/extension/gcp/container"
@@ -86,6 +87,7 @@ func ReadTableConfigurations(homeDir string) {
 		"aws/elb/table_config.json",
 		"aws/elbv2/table_config.json",
 		"aws/cloudtrail/table_config.json",
+		"aws/rds/table_config.json",
 	}
 
 	var gcpConfigFileList = []string{
@@ -156,6 +158,8 @@ func RegisterPlugins(server *osquery.ExtensionManagerServer) {
 	server.RegisterPlugin(table.NewPlugin("aws_codedeploy_application", codedeploy.ListApplicationsColumns(), codedeploy.ListApplicationsGenerate))
 	// AWS CODECOMMIT
 	server.RegisterPlugin(table.NewPlugin("aws_codecommit_repository", codecommit.ListRepositoriesColumns(), codecommit.ListRepositoriesGenerate))
+	// AWS RDS
+	server.RegisterPlugin(table.NewPlugin("aws_rds_snapshots", rds.ListSnapshotsColumns(), rds.DescribeSnapshotsGenerate))
 	// AWS EC2
 	server.RegisterPlugin(table.NewPlugin("aws_ec2_instance", ec2.DescribeInstancesColumns(), ec2.DescribeInstancesGenerate))
 	server.RegisterPlugin(table.NewPlugin("aws_ec2_vpc", ec2.DescribeVpcsColumns(), ec2.DescribeVpcsGenerate))
