@@ -1,5 +1,4 @@
-* AWS
-  - aws_rds_snapshots
+- AWS
   - aws_acm_certificate
   - aws_codepipeline_pipeline
   - aws_directoryservice_directory

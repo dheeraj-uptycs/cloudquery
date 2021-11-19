@@ -108,7 +108,7 @@ func ReadTableConfigurations(homeDir string) {
 		"azure/compute/table_config.json",
 		"azure/storage/table_config.json",
 	}
-	
+
 	var configFileList = append(awsConfigFileList, gcpConfigFileList...)
 	configFileList = append(configFileList, azureConfigFileList...)
 
@@ -259,7 +259,7 @@ func RegisterPlugins(server *osquery.ExtensionManagerServer) {
 	// Azure Storage
 	server.RegisterPlugin(table.NewPlugin("azure_storage_account", azurestorage.StorageAccountColumns(), azurestorage.StorageAccountsGenerate))
 	server.RegisterPlugin(table.NewPlugin("azure_storage_blob_container", azurestorage.StorageBlobContainerColumns(), azurestorage.StorageBlobContainerGenerate))
-	
+
 	// Event tables
 	registerEventTables(server)
 }

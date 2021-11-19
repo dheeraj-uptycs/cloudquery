@@ -1,1 +1,1 @@
-- aws_rds_snapshots
+- aws_rds_snapshot
