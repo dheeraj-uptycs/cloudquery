@@ -1,5 +1,5 @@
 {
-    "aws_rds_snapshots": {
+    "aws_rds_snapshot": {
       "aws": {
         "regionCodeAttribute": "region_code",
         "accountIdAttribute": "account_id"

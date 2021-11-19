@@ -1,5 +1,4 @@
 * AWS
-  - aws_rds_snapshots
   - aws_acm_certificate
   - aws_codepipeline_pipeline
   - aws_directoryservice_directory
@@ -51,3 +50,4 @@
   - aws_sqs_queue
   - aws_elb_loadbalancer
   - aws_elbv2_loadbalancer
+  - aws_rds_snapshot

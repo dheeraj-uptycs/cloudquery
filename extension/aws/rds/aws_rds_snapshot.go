@@ -98,9 +98,9 @@ func ListSnapshotsColumns() []table.ColumnDefinition {
 // DescribeSnapshotsGenerate returns the rows in the table for all configured accounts
 func DescribeSnapshotsGenerate(osqCtx context.Context, queryContext table.QueryContext) ([]map[string]string, error) {
 	resultMap := make([]map[string]string, 0)
-	if len(utilities.ExtConfiguration.ExtConfAws.Accounts) == 0 && extaws.ShouldProcessAccount("aws_rds_snapshots", utilities.AwsAccountID) {
+	if len(utilities.ExtConfiguration.ExtConfAws.Accounts) == 0 && extaws.ShouldProcessAccount("aws_rds_snapshot", utilities.AwsAccountID) {
 		utilities.GetLogger().WithFields(log.Fields{
-			"tableName": "aws_rds_snapshots",
+			"tableName": "aws_rds_snapshot",
 			"account":   "default",
 		}).Info("processing account")
 		results, err := processAccountDescribeSnapshots(osqCtx, queryContext, nil)
@@ -110,11 +110,11 @@ func DescribeSnapshotsGenerate(osqCtx context.Context, queryContext table.QueryC
 		resultMap = append(resultMap, results...)
 	} else {
 		for _, account := range utilities.ExtConfiguration.ExtConfAws.Accounts {
-			if !extaws.ShouldProcessAccount("aws_rds_snapshots", account.ID) {
+			if !extaws.ShouldProcessAccount("aws_rds_snapshot", account.ID) {
 				continue
 			}
 			utilities.GetLogger().WithFields(log.Fields{
-				"tableName": "aws_rds_snapshots",
+				"tableName": "aws_rds_snapshot",
 				"account":   account.ID,
 			}).Info("processing account")
 			results, err := processAccountDescribeSnapshots(osqCtx, queryContext, &account)
@@ -141,7 +141,7 @@ func processRegionDescribeSnapshots(osqCtx context.Context, queryContext table.Q
 	}
 
 	utilities.GetLogger().WithFields(log.Fields{
-		"tableName": "aws_rds_snapshots",
+		"tableName": "aws_rds_snapshot",
 		"account":   accountId,
 		"region":    *region.RegionName,
 	}).Debug("processing region")
@@ -155,7 +155,7 @@ func processRegionDescribeSnapshots(osqCtx context.Context, queryContext table.Q
 		page, err := paginator.NextPage(osqCtx)
 		if err != nil {
 			utilities.GetLogger().WithFields(log.Fields{
-				"tableName": "aws_rds_snapshots",
+				"tableName": "aws_rds_snapshot",
 				"account":   accountId,
 				"region":    *region.RegionName,
 				"task":      "DescribeDBClusterSnapshots",
@@ -166,7 +166,7 @@ func processRegionDescribeSnapshots(osqCtx context.Context, queryContext table.Q
 		byteArr, err := json.Marshal(page)
 		if err != nil {
 			utilities.GetLogger().WithFields(log.Fields{
-				"tableName": "aws_rds_snapshots",
+				"tableName": "aws_rds_snapshot",
 				"account":   accountId,
 				"region":    *region.RegionName,
 				"task":      "DescribeDBClusterSnapshots",
@@ -176,7 +176,7 @@ func processRegionDescribeSnapshots(osqCtx context.Context, queryContext table.Q
 		}
 		table := utilities.NewTable(byteArr, tableConfig)
 		for _, row := range table.Rows {
-			if !extaws.ShouldProcessRow(osqCtx, queryContext, "aws_rds_snapshots", accountId, *region.RegionName, row) {
+			if !extaws.ShouldProcessRow(osqCtx, queryContext, "aws_rds_snapshot", accountId, *region.RegionName, row) {
 				continue
 			}
 			result := extaws.RowToMap(row, accountId, *region.RegionName, tableConfig)
@@ -199,10 +199,10 @@ func processAccountDescribeSnapshots(osqCtx context.Context, queryContext table.
 	if err != nil {
 		return resultMap, err
 	}
-	tableConfig, ok := utilities.TableConfigurationMap["aws_rds_snapshots"]
+	tableConfig, ok := utilities.TableConfigurationMap["aws_rds_snapshot"]
 	if !ok {
 		utilities.GetLogger().WithFields(log.Fields{
-			"tableName": "aws_rds_snapshots",
+			"tableName": "aws_rds_snapshot",
 		}).Error("failed to get table configuration")
 		return resultMap, fmt.Errorf("table configuration not found")
 	}
@@ -211,7 +211,7 @@ func processAccountDescribeSnapshots(osqCtx context.Context, queryContext table.
 		if account != nil {
 			accountId = account.ID
 		}
-		if !extaws.ShouldProcessRegion("aws_rds_snapshots", accountId, *region.RegionName) {
+		if !extaws.ShouldProcessRegion("aws_rds_snapshot", accountId, *region.RegionName) {
 			continue
 		}
 		result, err := processRegionDescribeSnapshots(osqCtx, queryContext, tableConfig, account, region)
