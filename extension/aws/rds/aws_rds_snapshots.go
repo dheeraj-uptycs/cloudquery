@@ -158,7 +158,7 @@ func processRegionDescribeSnapshots(osqCtx context.Context, queryContext table.Q
 				"tableName": "aws_rds_snapshots",
 				"account":   accountId,
 				"region":    *region.RegionName,
-				"task":      "DescribeDBSnapshots",
+				"task":      "DescribeDBClusterSnapshots",
 				"errString": err.Error(),
 			}).Error("failed to process region")
 			return resultMap, err
@@ -169,7 +169,7 @@ func processRegionDescribeSnapshots(osqCtx context.Context, queryContext table.Q
 				"tableName": "aws_rds_snapshots",
 				"account":   accountId,
 				"region":    *region.RegionName,
-				"task":      "DescribeDBSnapshots",
+				"task":      "DescribeDBClusterSnapshots",
 				"errString": err.Error(),
 			}).Error("failed to marshal response")
 			return nil, err
