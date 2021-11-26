@@ -13,8 +13,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"sync"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/Uptycs/cloudquery/extension/azure"
 	extazure "github.com/Uptycs/cloudquery/extension/azure"

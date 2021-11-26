@@ -43,6 +43,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sqs v1.1.1
 	github.com/aws/aws-sdk-go-v2/service/sts v1.1.0
 	github.com/aws/aws-sdk-go-v2/service/workspaces v1.1.1
+	github.com/fatih/structs v1.1.0 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.7.0
