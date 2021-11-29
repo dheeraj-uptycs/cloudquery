@@ -187,7 +187,6 @@ func getDisk(session *azure.AzureSession, rg string, wg *sync.WaitGroup, resultM
 		resource := resourceItr.Value()
 		structs.DefaultTagName = "json"
 		resMap := structs.Map(resource)
-		//fmt.Print(resMap)
 		utilities.GetLogger().Error(resMap)
 		byteArr, err := json.Marshal(resMap)
 		if err != nil {

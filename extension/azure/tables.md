@@ -4,3 +4,4 @@
   - azure_storage_blob_container
   - azure_storage_account
   - azure_compute_disk
+  - azure_compute_security_group
