@@ -137,7 +137,7 @@ func processAccountSecurityGroups(account *utilities.ExtensionConfigurationAzure
 func getSecurityGroups(session *azure.AzureSession, rg string, wg *sync.WaitGroup, resultMap *[]map[string]string, tableConfig *utilities.TableConfig) {
 	defer wg.Done()
 
-	svcClient := network.NewApplicationSecurityGroupsClient(session.SubscriptionId)
+	svcClient := network.NewSecurityGroupsClient(session.SubscriptionId)
 	svcClient.Authorizer = session.Authorizer
 
 	for resourceItr, err := svcClient.ListComplete(context.Background(), rg); resourceItr.NotDone(); err = resourceItr.Next() {
