@@ -17,7 +17,6 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/Uptycs/cloudquery/extension/azure"
 	extazure "github.com/Uptycs/cloudquery/extension/azure"
 
 	"github.com/Uptycs/basequery-go/plugin/table"
@@ -141,11 +140,11 @@ func DiskGenerate(osqCtx context.Context, queryContext table.QueryContext) ([]ma
 func processAccountDisk(account *utilities.ExtensionConfigurationAzureAccount) ([]map[string]string, error) {
 	resultMap := make([]map[string]string, 0)
 	var wg sync.WaitGroup
-	session, err := azure.GetAuthSession(account)
+	session, err := extazure.GetAuthSession(account)
 	if err != nil {
 		return resultMap, err
 	}
-	groups, err := azure.GetGroups(session)
+	groups, err := extazure.GetGroups(session)
 
 	if err != nil {
 		return resultMap, err
@@ -168,7 +167,7 @@ func processAccountDisk(account *utilities.ExtensionConfigurationAzureAccount) (
 	return resultMap, nil
 }
 
-func getDisk(session *azure.AzureSession, rg string, wg *sync.WaitGroup, resultMap *[]map[string]string, tableConfig *utilities.TableConfig) {
+func getDisk(session *extazure.AzureSession, rg string, wg *sync.WaitGroup, resultMap *[]map[string]string, tableConfig *utilities.TableConfig) {
 	defer wg.Done()
 
 	svcClient := compute.NewDisksClient(session.SubscriptionId)

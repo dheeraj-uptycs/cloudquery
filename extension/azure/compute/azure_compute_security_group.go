@@ -19,7 +19,6 @@ import (
 
 	"github.com/Azure/azure-sdk-for-go/services/network/mgmt/2021-05-01/network"
 	"github.com/Uptycs/basequery-go/plugin/table"
-	"github.com/Uptycs/cloudquery/extension/azure"
 	extazure "github.com/Uptycs/cloudquery/extension/azure"
 	"github.com/Uptycs/cloudquery/utilities"
 	"github.com/fatih/structs"
@@ -82,7 +81,7 @@ func SecurityGroupsGenerate(osqCtx context.Context, queryContext table.QueryCont
 			"tableName": tableName,
 			"account":   "default",
 		}).Info("processing account")
-		results, err := processAccountDisk(nil)
+		results, err := processAccountSecurityGroups(nil)
 		if err != nil {
 			return resultMap, err
 		}
@@ -93,7 +92,7 @@ func SecurityGroupsGenerate(osqCtx context.Context, queryContext table.QueryCont
 				"tableName": tableName,
 				"account":   account.SubscriptionID,
 			}).Info("processing account")
-			results, err := processAccountDisk(&account)
+			results, err := processAccountSecurityGroups(&account)
 			if err != nil {
 				continue
 			}
@@ -107,11 +106,11 @@ func SecurityGroupsGenerate(osqCtx context.Context, queryContext table.QueryCont
 func processAccountSecurityGroups(account *utilities.ExtensionConfigurationAzureAccount) ([]map[string]string, error) {
 	resultMap := make([]map[string]string, 0)
 	var wg sync.WaitGroup
-	session, err := azure.GetAuthSession(account)
+	session, err := extazure.GetAuthSession(account)
 	if err != nil {
 		return resultMap, err
 	}
-	groups, err := azure.GetGroups(session)
+	groups, err := extazure.GetGroups(session)
 
 	if err != nil {
 		return resultMap, err
@@ -128,13 +127,13 @@ func processAccountSecurityGroups(account *utilities.ExtensionConfigurationAzure
 	}
 
 	for _, group := range groups {
-		go getDisk(session, group, &wg, &resultMap, tableConfig)
+		go getSecurityGroups(session, group, &wg, &resultMap, tableConfig)
 	}
 	wg.Wait()
 	return resultMap, nil
 }
 
-func getSecurityGroups(session *azure.AzureSession, rg string, wg *sync.WaitGroup, resultMap *[]map[string]string, tableConfig *utilities.TableConfig) {
+func getSecurityGroups(session *extazure.AzureSession, rg string, wg *sync.WaitGroup, resultMap *[]map[string]string, tableConfig *utilities.TableConfig) {
 	defer wg.Done()
 
 	svcClient := network.NewSecurityGroupsClient(session.SubscriptionId)
