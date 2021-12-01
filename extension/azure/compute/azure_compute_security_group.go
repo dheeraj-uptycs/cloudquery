@@ -152,9 +152,9 @@ func getSecurityGroups(session *azure.AzureSession, rg string, wg *sync.WaitGrou
 
 		resource := resourceItr.Value()
 		structs.DefaultTagName = "json"
-
 		resMap := structs.Map(resource)
 		utilities.GetLogger().Error(resMap)
+
 		byteArr, err := json.Marshal(resMap)
 		if err != nil {
 			utilities.GetLogger().WithFields(log.Fields{
