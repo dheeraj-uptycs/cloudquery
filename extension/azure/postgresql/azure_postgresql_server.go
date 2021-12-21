@@ -49,7 +49,7 @@ func PostgresqlServerColumns() []table.ColumnDefinition {
 		// table.TextColumn("private_endpoint_connections_properties_provisioning_state"),
 		table.TextColumn("public_network_access"),
 		table.TextColumn("replica_capacity"),
-		table.TextColumn("replication_role"),
+		table.IntegerColumn("replication_role"),
 		table.TextColumn("ssl_enforcement"),
 		table.TextColumn("storage_profile"),
 		// table.TextColumn("storage_profile_backup_retention_days"),
