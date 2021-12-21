@@ -17,3 +17,4 @@
   - azure_storage_diagnostic_setting
   - azure_mysql_server
   - azure_cosmosdb_account
+  - azure_cosmosdb_sqldb
