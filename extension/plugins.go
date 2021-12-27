@@ -47,11 +47,12 @@ import (
 
 	azureappservice "github.com/Uptycs/cloudquery/extension/azure/appservice"
 	azurecompute "github.com/Uptycs/cloudquery/extension/azure/compute"
-	azuremonitor "github.com/Uptycs/cloudquery/extension/azure/monitor"
 	azurecosmosdb "github.com/Uptycs/cloudquery/extension/azure/cosmosdb"
 	azurekeyvault "github.com/Uptycs/cloudquery/extension/azure/keyvault"
+	azuremonitor "github.com/Uptycs/cloudquery/extension/azure/monitor"
 	azuremysql "github.com/Uptycs/cloudquery/extension/azure/mysql"
 	azurepostgresql "github.com/Uptycs/cloudquery/extension/azure/postgresql"
+	azuresecurity "github.com/Uptycs/cloudquery/extension/azure/securitycentre"
 	azuresql "github.com/Uptycs/cloudquery/extension/azure/sql"
 	azurestorage "github.com/Uptycs/cloudquery/extension/azure/storage"
 
@@ -120,6 +121,7 @@ func ReadTableConfigurations(homeDir string) {
 		"azure/mysql/table_config.json",
 		"azure/monitor/table_config.json",
 		"azure/postgresql/table_config.json",
+		"azure/securitycentre/table_config.json",
 		"azure/storage/table_config.json",
 		"azure/sql/table_config.json",
 	}
@@ -293,7 +295,7 @@ func RegisterPlugins(server *osquery.ExtensionManagerServer) {
 	//Azure MySQl
 	server.RegisterPlugin(table.NewPlugin("azure_mysql_server", azuremysql.MysqlServerColumns(), azuremysql.MysqlServerGenerate))
 	//Azure Monitor
-	server.RegisterPlugin(table.NewPlugin("azure_monitor_diagnostic_settings_resource", azuremonitor.DiagnosticSettingsResourceColumns(), azuremonitor.DiagnosticSettingsResourceGenerate)) 
+	server.RegisterPlugin(table.NewPlugin("azure_monitor_diagnostic_settings_resource", azuremonitor.DiagnosticSettingsResourceColumns(), azuremonitor.DiagnosticSettingsResourceGenerate))
 	// Azure Appservice
 	server.RegisterPlugin(table.NewPlugin("azure_appservice_site", azureappservice.AppserviceSiteColumns(), azureappservice.AppserviceSitesGenerate))
 	// Azure SQL
@@ -302,6 +304,8 @@ func RegisterPlugins(server *osquery.ExtensionManagerServer) {
 	// Azure Keyvault
 	server.RegisterPlugin(table.NewPlugin("azure_keyvault_vault", azurekeyvault.KeyvaultVaultColumns(), azurekeyvault.KeyvaultVaultsGenerate))
 	server.RegisterPlugin(table.NewPlugin("azure_keyvault_key", azurekeyvault.KeyvaultKeyColumns(), azurekeyvault.KeyvaultKeysGenerate))
+	//Azure Securitycentre
+	server.RegisterPlugin(table.NewPlugin("azure_securitycentre_security_contact", azuresecurity.SecuritycentreSecurityContactColumns(), azuresecurity.SecuritycentreSecurityContactsGenerate))
 	// Event tables
 	registerEventTables(server)
 }
