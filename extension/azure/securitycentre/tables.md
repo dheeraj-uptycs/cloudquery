@@ -1,1 +1,0 @@
-- azure_securitycentre_security_contact

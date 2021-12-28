@@ -1,4 +1,4 @@
-package securitycentre
+package securitycenter
 
 import (
 	"context"
@@ -16,10 +16,10 @@ import (
 	"github.com/fatih/structs"
 )
 
-const SecuritycentreSecurityContact string = "azure_securitycentre_security_contact"
+const SecuritycenterSecurityContact string = "azure_securitycenter_security_contact"
 
-// SecuritycentreSecurityContactColumns returns the list of columns in the table
-func SecuritycentreSecurityContactColumns() []table.ColumnDefinition {
+// SecuritycenterSecurityContactColumns returns the list of columns in the table
+func SecuritycenterSecurityContactColumns() []table.ColumnDefinition {
 	return []table.ColumnDefinition{
 		table.TextColumn("id"),
 		table.TextColumn("name"),
@@ -32,15 +32,15 @@ func SecuritycentreSecurityContactColumns() []table.ColumnDefinition {
 	}
 }
 
-// SecuritycentreSecurityContactsGenerate returns the rows in the table for all configured accounts
-func SecuritycentreSecurityContactsGenerate(osqCtx context.Context, queryContext table.QueryContext) ([]map[string]string, error) {
+// SecuritycenterSecurityContactsGenerate returns the rows in the table for all configured accounts
+func SecuritycenterSecurityContactsGenerate(osqCtx context.Context, queryContext table.QueryContext) ([]map[string]string, error) {
 	resultMap := make([]map[string]string, 0)
 	if len(utilities.ExtConfiguration.ExtConfAzure.Accounts) == 0 {
 		utilities.GetLogger().WithFields(log.Fields{
-			"tableName": SecuritycentreSecurityContact,
+			"tableName": SecuritycenterSecurityContact,
 			"account":   "default",
 		}).Info("processing account")
-		results, err := processAccountSecuritycentreSecurityContacts(nil)
+		results, err := processAccountSecuritycenterSecurityContacts(nil)
 		if err != nil {
 			return resultMap, err
 		}
@@ -48,10 +48,10 @@ func SecuritycentreSecurityContactsGenerate(osqCtx context.Context, queryContext
 	} else {
 		for _, account := range utilities.ExtConfiguration.ExtConfAzure.Accounts {
 			utilities.GetLogger().WithFields(log.Fields{
-				"tableName": SecuritycentreSecurityContact,
+				"tableName": SecuritycenterSecurityContact,
 				"account":   account.SubscriptionID,
 			}).Info("processing account")
-			results, err := processAccountSecuritycentreSecurityContacts(&account)
+			results, err := processAccountSecuritycenterSecurityContacts(&account)
 			if err != nil {
 				continue
 			}
@@ -62,30 +62,30 @@ func SecuritycentreSecurityContactsGenerate(osqCtx context.Context, queryContext
 	return resultMap, nil
 }
 
-func processAccountSecuritycentreSecurityContacts(account *utilities.ExtensionConfigurationAzureAccount) ([]map[string]string, error) {
+func processAccountSecuritycenterSecurityContacts(account *utilities.ExtensionConfigurationAzureAccount) ([]map[string]string, error) {
 	resultMap := make([]map[string]string, 0)
 	session, err := azure.GetAuthSession(account)
 	if err != nil {
 		return resultMap, err
 	}
-	tableConfig, ok := utilities.TableConfigurationMap[SecuritycentreSecurityContact]
+	tableConfig, ok := utilities.TableConfigurationMap[SecuritycenterSecurityContact]
 	if !ok {
 		utilities.GetLogger().WithFields(log.Fields{
-			"tableName": SecuritycentreSecurityContact,
+			"tableName": SecuritycenterSecurityContact,
 		}).Error("failed to get table configuration")
 		return resultMap, fmt.Errorf("table configuration not found")
 	}
 
-	setSecuritycentreSecurityContacttoTable(session, "", &resultMap, tableConfig)
+	setSecuritycenterSecurityContacttoTable(session, "", &resultMap, tableConfig)
 
 	return resultMap, nil
 }
-func setSecuritycentreSecurityContacttoTable(session *azure.AzureSession, rg string, resultMap *[]map[string]string, tableConfig *utilities.TableConfig) {
+func setSecuritycenterSecurityContacttoTable(session *azure.AzureSession, rg string, resultMap *[]map[string]string, tableConfig *utilities.TableConfig) {
 
-	resources, err := getSecuritycentreSecurityContactData(session, rg)
+	resources, err := getSecuritycenterSecurityContactData(session, rg)
 	if err != nil {
 		utilities.GetLogger().WithFields(log.Fields{
-			"tableName":      SecuritycentreSecurityContact,
+			"tableName":      SecuritycenterSecurityContact,
 			"rescourceGroup": rg,
 			"errString":      err.Error(),
 		}).Error("failed to get contact list from api")
@@ -97,7 +97,7 @@ func setSecuritycentreSecurityContacttoTable(session *azure.AzureSession, rg str
 		byteArr, err := json.Marshal(resMap)
 		if err != nil {
 			utilities.GetLogger().WithFields(log.Fields{
-				"tableName":     SecuritycentreSecurityContact,
+				"tableName":     SecuritycenterSecurityContact,
 				"resourceGroup": rg,
 				"errString":     err.Error(),
 			}).Error("failed to marshal response")
@@ -110,7 +110,7 @@ func setSecuritycentreSecurityContacttoTable(session *azure.AzureSession, rg str
 		}
 	}
 }
-func getSecuritycentreSecurityContactData(session *azure.AzureSession, asclocation string) (result azuresecurity.ContactListPage, err error) {
+func getSecuritycenterSecurityContactData(session *azure.AzureSession, asclocation string) (result azuresecurity.ContactListPage, err error) {
 
 	svcClient := azuresecurity.NewContactsClient(session.SubscriptionId, asclocation)
 	svcClient.Authorizer = session.Authorizer

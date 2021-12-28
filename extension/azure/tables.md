@@ -24,4 +24,4 @@
   - azure_cosmosdb_mongodb
   - azure_keyvault_vault
   - azure_keyvault_key
-  - azure_securitycentre_security_contact
+  - azure_securitycenter_security_contact
