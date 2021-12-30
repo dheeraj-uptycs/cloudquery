@@ -296,6 +296,7 @@ func RegisterPlugins(server *osquery.ExtensionManagerServer) {
 	server.RegisterPlugin(table.NewPlugin("azure_mysql_server", azuremysql.MysqlServerColumns(), azuremysql.MysqlServerGenerate))
 	//Azure Monitor
 	server.RegisterPlugin(table.NewPlugin("azure_monitor_diagnostic_settings_resource", azuremonitor.DiagnosticSettingsResourceColumns(), azuremonitor.DiagnosticSettingsResourceGenerate))
+	server.RegisterPlugin(table.NewPlugin("azure_monitor_diagnostic_settings_subscription", azuremonitor.DiagnosticSettingsSubscriptionColumns(), azuremonitor.DiagnosticSettingsSubscriptionGenerate))
 	// Azure Appservice
 	server.RegisterPlugin(table.NewPlugin("azure_appservice_site", azureappservice.AppserviceSiteColumns(), azureappservice.AppserviceSitesGenerate))
 	// Azure SQL
