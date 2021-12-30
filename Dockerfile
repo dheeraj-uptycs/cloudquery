@@ -74,6 +74,7 @@ COPY extension/aws/workspaces/table_config.json         /opt/cloudquery/etc/aws/
 COPY extension/azure/appservice/table_config.json  /opt/cloudquery/etc/azure/appservice/
 COPY extension/azure/compute/table_config.json  /opt/cloudquery/etc/azure/compute/
 COPY extension/azure/containerservice/table_config.json  /opt/cloudquery/etc/azure/containerservice/
+COPY extension/azure/dns/table_config.json  /opt/cloudquery/etc/azure/dns/
 COPY extension/azure/monitor/table_config.json  /opt/cloudquery/etc/azure/monitor/
 COPY extension/azure/cosmosdb/table_config.json  /opt/cloudquery/etc/azure/cosmosdb/
 COPY extension/azure/keyvault/table_config.json  /opt/cloudquery/etc/azure/keyvault/
