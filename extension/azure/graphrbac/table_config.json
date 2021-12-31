@@ -412,5 +412,62 @@
             "enabled": true
           }
         ]
-      }
+      },
+    "azure_graphrbac_group": {
+      "aws": {},
+      "gcp": {},
+      "azure": {
+        "subscriptionIdAttribute": "subscription_id"
+      },
+      "parsedAttributes":[
+        {
+          "sourceName": "deletionTimestamp",
+          "targetName": "deletion_timestamp",
+          "targetType": "TEXT",
+          "enabled": true
+        },
+        {
+          "sourceName": "displayName",
+          "targetName": "display_name",
+          "targetType": "TEXT",
+          "enabled": true
+        },
+        {
+          "sourceName": "mail",
+          "targetName": "mail",
+          "targetType": "TEXT",
+          "enabled": true
+        },
+        {
+          "sourceName": "mailEnabled",
+          "targetName": "mail_enabled",
+          "targetType": "TEXT",
+          "enabled": true
+        },
+        {
+          "sourceName": "mailNickname",
+          "targetName": "mail_nickname",
+          "targetType": "TEXT",
+          "enabled": true
+        },
+        {
+          "sourceName": "objectId",
+          "targetName": "object_id",
+          "targetType": "TEXT",
+          "enabled": true
+        },
+        {
+          "sourceName": "objectType",
+          "targetName": "object_type",
+          "targetType": "TEXT",
+          "enabled": true
+        },
+        {
+          "sourceName": "securityEnabled",
+          "targetName": "security_enabled",
+          "targetType": "TEXT",
+          "enabled": true
+        }
+      ]
+    }
 }

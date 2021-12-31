@@ -1,1 +1,2 @@
 - azure_graphrbac_service_principal
+- azure_graphrbac_group

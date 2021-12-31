@@ -37,3 +37,4 @@
   - azure_graphrbac_service_principal
   - azure_graphrbac_user
   - azure_network_load_balancer
+  - azure_graphrbac_group
