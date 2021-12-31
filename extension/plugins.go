@@ -126,6 +126,7 @@ func ReadTableConfigurations(homeDir string) {
 		"azure/keyvault/table_config.json",
 		"azure/mysql/table_config.json",
 		"azure/monitor/table_config.json",
+		"azure/network/table_config.json",
 		"azure/postgresql/table_config.json",
 		"azure/securitycenter/table_config.json",
 		"azure/storage/table_config.json",
@@ -318,6 +319,7 @@ func RegisterPlugins(server *osquery.ExtensionManagerServer) {
 	server.RegisterPlugin(table.NewPlugin("azure_keyvault_key", azurekeyvault.KeyvaultKeyColumns(), azurekeyvault.KeyvaultKeysGenerate))
 	// Azure Network
 	server.RegisterPlugin(table.NewPlugin("azure_network_watcher_flow_log", azurenetwork.AzureNetworkWatcherFlowLogColumns(), azurenetwork.AzureNetworkWatcherFlowLogsGenerate))
+  server.RegisterPlugin(table.NewPlugin("azure_network_load_balancer", azurenetwork.NetworkLoadBalancerColumns(), azurenetwork.NetworkLoadBalancersGenerate))
 	//Azure Securitycenter
 	server.RegisterPlugin(table.NewPlugin("azure_securitycenter_security_contact", azuresecurity.SecuritycenterSecurityContactColumns(), azuresecurity.SecuritycenterSecurityContactsGenerate))
 	server.RegisterPlugin(table.NewPlugin("azure_securitycenter_setting", azuresecurity.SecuritycenterSettingColumns(), azuresecurity.SecuritycenterSettingGenerate))
