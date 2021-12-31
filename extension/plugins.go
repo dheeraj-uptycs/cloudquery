@@ -134,10 +134,7 @@ func ReadTableConfigurations(homeDir string) {
 		"azure/sql/table_config.json",
 		"azure/network/table_config.json",
 		"azure/dns/table_config.json",
-<<<<<<< HEAD
 		"azure/redis/table_config.json",
-=======
->>>>>>> added azure_graphrbac_group
 		"azure/graphrbac/table_config.json",
 	}
 	var configFileList = append(awsConfigFileList, gcpConfigFileList...)
