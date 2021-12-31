@@ -336,6 +336,7 @@ func RegisterPlugins(server *osquery.ExtensionManagerServer) {
 	server.RegisterPlugin(table.NewPlugin("azure_redis_cache", azureredis.RedisCacheColumns(), azureredis.RedisCacheGenerate))
 	// Azure Graphrbac
 	server.RegisterPlugin(table.NewPlugin("azure_graphrbac_service_principal", azuregraphrbac.GraphrbacServicePrincipalColumns(), azuregraphrbac.GraphrbacServicePrincipalGenerate))
+	server.RegisterPlugin(table.NewPlugin("azure_graphrbac_group", azuregraphrbac.GraphrbacGroupColunmns(), azuregraphrbac.GraphrbacGroupGenerate))
 	// Event tables
 	registerEventTables(server)
 }
