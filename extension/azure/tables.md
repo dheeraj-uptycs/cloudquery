@@ -35,4 +35,5 @@
   - azure_monitor_activity_log_alert
   - azure_redis_cache
   - azure_graphrbac_service_principal
+  - azure_graphrbac_user
   - azure_network_load_balancer
